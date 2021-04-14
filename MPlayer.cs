@@ -40,7 +40,7 @@ public class MPlayer : ModPlayer
     {
         if (Unstable)
         {
-            ModContent.GetInstance<Unstable>().UnstableExplosion(player, 0.1f);
+            ModContent.GetInstance<Unstable>().UnstableExplosion(player, 0.25f);
         }
         base.Kill(damage, hitDirection, pvp, damageSource);
     }

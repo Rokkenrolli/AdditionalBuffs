@@ -9,7 +9,7 @@ namespace AdditionalBuffs.Buffs
     {
         public override void SetDefaults()
         {
-            DisplayName.SetDefault("Unsable");
+            DisplayName.SetDefault("Unstable");
             Description.SetDefault("Explosion on death");
             Main.debuff[Type] = true;
             Main.pvpBuff[Type] = true;
@@ -20,13 +20,15 @@ namespace AdditionalBuffs.Buffs
         public void UnstableExplosion(Player player, float fraction)
         {
             int damage = (int)(player.statLifeMax2 * fraction);
-            Projectile projectile = Projectile.NewProjectileDirect(player.Center, Vector2.Zero, ModContent.ProjectileType<InstantExplosion>(), damage, 1, player.whoAmI);
+            Projectile projectile = Projectile.NewProjectileDirect(player.Center, Vector2.Zero, ModContent.ProjectileType<UnstableExplosion>(), damage, 1, player.whoAmI);
+            projectile.Damage();
         }
 
         public void UnstableExplosion(NPC npc, float fraction)
         {
             int damage = (int)(npc.lifeMax * fraction);
-            Projectile projectile = Projectile.NewProjectileDirect(npc.Center, Vector2.Zero, ModContent.ProjectileType<InstantExplosion>(), damage, 1, npc.whoAmI);
+            Projectile projectile = Projectile.NewProjectileDirect(npc.Center, Vector2.Zero, ModContent.ProjectileType<UnstableExplosion>(), damage, 1, npc.whoAmI);
+            projectile.Damage();
         }
 
         public override void Update(NPC npc, ref int buffIndex)
