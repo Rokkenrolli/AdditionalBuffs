@@ -5,17 +5,18 @@ using AdditionalBuffs.Buffs;
 
 namespace AdditionalBuffs
 {
-    public class MNPCSkeleton : ModNPC
+    public class UnstableNPC : GlobalNPC
     {
-        private bool Unstable = false;
+        public bool Unstable = false;
+        public bool RenewUnstable = false;
 
-        public override bool CheckDead()
+        public override bool CheckDead(NPC npc)
         {
             if (Unstable)
             {
                 ModContent.GetInstance<Unstable>().UnstableExplosion(npc, 0.1f);
             }
-            return base.CheckDead();
+            return base.CheckDead(npc);
         }
     }
 }
