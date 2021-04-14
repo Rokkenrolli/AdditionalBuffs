@@ -6,21 +6,23 @@ using Microsoft.Xna.Framework;
 using Terraria.Localization;
 using Terraria.ID;
 
-
 namespace AdditionalBuffs.Buffs
 {
     public class Doom : ModBuff
     {
-        readonly string[] buffTips = { "You feel weak", "Chill resonates through your body", "Don't look back", "RUN", "DOOOM" };
+        private readonly string[] buffTips = { "You feel weak", "Chill resonates through your body", "Don't look back", "RUN", "DOOOM" };
+
         public override void SetDefaults()
         {
             DisplayName.SetDefault("DOOM");
             Description.SetDefault("DOOM");
             Main.debuff[Type] = true;
         }
-        readonly int baseDamage = 10;
-        readonly int baseExecuteThreshold = 30;
-        public void AddDoom(Player player, int  bufftime, int stacksPerHit )
+
+        private readonly int baseDamage = 10;
+        private readonly int baseExecuteThreshold = 30;
+
+        public void AddDoom(Player player, int bufftime, int stacksPerHit)
         {
             MPlayer p = player.GetModPlayer<MPlayer>();
             if (!player.HasBuff(Type))
@@ -30,7 +32,6 @@ namespace AdditionalBuffs.Buffs
             else
             {
                 p.DoomStack += stacksPerHit;
-                   
             }
             /**
              * this for some reason does not work
@@ -40,7 +41,6 @@ namespace AdditionalBuffs.Buffs
             else NetMessage.BroadcastChatMessage(NetworkText.FromKey(message + "(" + player.name + ")"), color);
             */
         }
-
 
         public override void Update(Player player, ref int buffIndex)
         {
@@ -54,7 +54,7 @@ namespace AdditionalBuffs.Buffs
             {
                 int stacks = p.DoomStack + 1;
                 int damage = player.statLife < baseExecuteThreshold * stacks ? 999999 : baseDamage * stacks;
-                player.Hurt(PlayerDeathReason.ByCustomReason("DOOOMED (" +stacks.ToString()+ ") stacks of DOOM" ), damage, 0);
+                player.Hurt(PlayerDeathReason.ByCustomReason("DOOOMED (" + stacks.ToString() + ") stacks of DOOM"), damage, 0);
                 p.ResetDoom();
             }
         }
