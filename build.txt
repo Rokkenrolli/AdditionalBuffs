@@ -1,0 +1,3 @@
+displayName = AdditionalBuffs
+author = Olz
+version = 0.1
